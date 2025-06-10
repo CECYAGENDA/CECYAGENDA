@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión Futurista</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: radial-gradient(ellipse at center, #0d0d0d 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #00f0ff;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px #00f0ff;
+            text-align: center;
+            animation: fadeIn 1.5s ease;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        select, input, button {
+            margin: 10px 0;
+            padding: 12px;
+            width: 100%;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+
+        select, input {
+            background: #111;
+            color: #00f0ff;
+            border: 1px solid #00f0ff;
+            box-shadow: 0 0 5px #00f0ff20;
+        }
+
+        input:focus, select:focus {
+            box-shadow: 0 0 15px #00f0ff;
+            transform: scale(1.02);
+        }
+
+        button {
+            background: #00f0ff;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00f0ff, 0 0 40px #00f0ff50;
+        }
+
+        button:hover {
+            background: #00cce6;
+            box-shadow: 0 0 20px #00f0ff, 0 0 50px #00f0ff80;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Inicio de Sesión</h2>
+    <label for="rol">Selecciona tu rol:</label>
+    <select id="rol" onchange="mostrarCampos()">
+        <option value="">--Seleccionar--</option>
+        <option value="profesor">Profesor</option>
+        <option value="alumno">Alumno</option>
+    </select>
+
+    <div id="campos">
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="email" id="correo" placeholder="Correo Institucional">
+        <input type="password" id="password" placeholder="Contraseña">
+        <input type="text" id="control" placeholder="Número de Control (Solo alumnos)" style="display: none;">
+        <button onclick="iniciarSesion()">Iniciar Sesión</button>
+    </div>
+</div>
+
+<!-- Sonido -->
+<audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3" preload="auto"></audio>
+
+<script>
+    function mostrarCampos() {
+        const rol = document.getElementById("rol").value;
+        document.getElementById("control").style.display = rol === "alumno" ? "block" : "none";
+    }
+
+    function iniciarSesion() {
+        const rol = document.getElementById("rol").value;
+        const nombre = document.getElementById("nombre").value;
+        const correo = document.getElementById("correo").value;
+        const password = document.getElementById("password").value;
+        const control = document.getElementById("control").value;
+
+        if (!rol || !nombre || !correo || !password || (rol === "alumno" && !control)) {
+            alert("Por favor, llena todos los campos.");
+            return;
+        }
+
+        // Reproducir sonido
+        document.getElementById("click-sound").play();
+
+        // Guardar datos de sesión (simulación)
+        sessionStorage.setItem("usuario", JSON.stringify({ rol, nombre, correo }));
+
+        // Redirigir a index.html después de una breve pausa
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 300);
+    }
+</script>
+
+</body>
+</html>

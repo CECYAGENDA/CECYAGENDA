@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CECYAGENDA</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <div class="bienvenida" id="pantalla-inicial">
+    <h1>BIENVENIDO A TU CECYAGENDA</h1>
+    <button onclick="entrar(); reproducirSonidoClick()">Entrar</button>
+  </div>
+
+  <div id="app">
+    <header>
+      <h2>CECYAGENDA</h2>
+      <div class="menu">
+        <button onclick="toggleMenu(); reproducirSonidoClick()">☰ Menú</button>
+        <div class="menu-content" id="menu-opciones">
+          <button onclick="mostrarSeccion('tareas'); reproducirSonidoClick()">📌 Tareas</button>
+          <button onclick="mostrarSeccion('examenes'); reproducirSonidoClick()">📅 Exámenes</button>
+          <button onclick="mostrarSeccion('notas'); reproducirSonidoClick()">📝 Notas</button>
+          <button onclick="mostrarSeccion('recientes'); reproducirSonidoClick()">🕘 Notas Recientes</button>
+          <button onclick="mostrarSeccion('personalizacion'); reproducirSonidoClick()">🎨 Personalización</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="tareas" class="active">
+        <h3>📌 Tareas</h3>
+        <input type="text" id="tareaTitulo" placeholder="Título de la tarea">
+        <textarea id="tareaDetalle" rows="4" placeholder="Detalles..."></textarea>
+        <button class="guardar" onclick="guardarDato('tarea'); reproducirSonidoClick()">Guardar tarea</button>
+      </section>
+
+      <section id="examenes">
+        <h3>📅 Exámenes</h3>
+        <input type="text" id="examenMateria" placeholder="Materia">
+        <input type="date" id="examenFecha">
+        <button class="guardar" onclick="guardarDato('examen'); reproducirSonidoClick()">Guardar examen</button>
+      </section>
+
+      <section id="notas">
+        <h3>📝 Notas</h3>
+        <textarea id="notaTexto" rows="6" placeholder="Escribe tus notas..."></textarea>
+        <button class="guardar" onclick="guardarDato('nota'); reproducirSonidoClick()">Guardar nota</button>
+      </section>
+
+      <section id="recientes">
+        <h3>🕘 Notas Recientes</h3>
+        <button id="btn-eliminar" onclick="activarSeleccion(); reproducirSonidoClick()">Eliminar nota(s)</button>
+        <div id="lista-recientes"></div>
+        <button id="btn-confirmar-eliminar" style="display:none;" onclick="eliminarNotasSeleccionadas(); reproducirSonidoClick()" disabled>Eliminar nota(s)</button>
+      </section>
+
+      <section id="personalizacion">
+        <h3>🎨 Personalización</h3>
+        <label>Tipo de letra</label>
+        <select onchange="cambiarFuente(this.value)">
+          <option value="'Segoe UI', sans-serif">Segoe UI</option>
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="'Courier New', monospace">Courier New</option>
+          <option value="'Comic Sans MS', cursive">Comic Sans</option>
+          <option value="Georgia, serif">Georgia</option>
+          <option value="Tahoma, sans-serif">Tahoma</option>
+        </select>
+
+        <label>Tamaño de fuente</label>
+        <input type="range" min="12" max="24" value="16" oninput="cambiarTamanioFuente(this.value)">
+
+        <label>Color de fondo</label>
+        <input type="color" onchange="cambiarColorFondo(this.value)">
+
+        <label>Color del texto</label>
+        <input type="color" onchange="cambiarColorTexto(this.value)">
+
+        <label>Imagen de fondo</label>
+        <input type="file" accept="image/*" onchange="cambiarFondoImagen(this)">
+
+        <label><input type="checkbox" onchange="alternarAnimaciones(this.checked)"> Animaciones</label>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 CECYAGENDA</p>
+    </footer>
+  </div>
+
+  <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3" preload="auto"></audio>
+  <script src="funciones.js"></script>
+</body>
+</html>
